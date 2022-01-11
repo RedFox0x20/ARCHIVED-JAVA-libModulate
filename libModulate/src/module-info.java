@@ -1,0 +1,3 @@
+module libModulate {
+	exports libModulate;
+}
