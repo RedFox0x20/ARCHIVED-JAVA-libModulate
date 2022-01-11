@@ -1,0 +1,3 @@
+module libModulateTest {
+	requires libModulate;
+}
