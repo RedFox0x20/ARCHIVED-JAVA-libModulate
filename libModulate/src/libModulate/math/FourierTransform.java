@@ -1,4 +1,4 @@
-package libModulate;
+package libModulate.math;
 
 public class FourierTransform {
 	/*

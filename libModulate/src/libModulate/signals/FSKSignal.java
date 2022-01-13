@@ -1,9 +1,8 @@
-package libModulate;
+package libModulate.signals;
 
-/* FSKSignal extends from Signal
- * A generic class for FSK Signals modulation, demodulation
- * 
- */
+import libModulate.math.FourierTransform;
+import libModulate.utils.BitModifiers;
+
 public class FSKSignal extends Signal {
 	// The rate at which data is modulated
 	private double ModulationRate;
@@ -27,6 +26,8 @@ public class FSKSignal extends Signal {
 	// use 8 bits per byte
 	private byte[] DemodBits;
 
+	// FSKSignal
+	// Allows for the Modulation and Demodulation of an FSKSignal 
 	public FSKSignal(double sampleRate, double modulationRate, double bottomFrequency, double frequencyShift,
 			double initialPhaseDeg, double amplitude) {
 		setSampleRate(sampleRate);
@@ -35,24 +36,35 @@ public class FSKSignal extends Signal {
 		setBottomFrequency(bottomFrequency);
 		setFrequencyShift(frequencyShift);
 		setInitialPhaseDeg(initialPhaseDeg);
-		setBitsPerSymbol(1);
+		internal_setBitsPerSymbol(1);
 		ModulateSymbolMap = new byte[0];
 		DemodulateSymbolMap = new byte[0];
 	}
 
 	// XXX: Methods
 
-	public void ModulateRawData(byte[] Data) {
-		byte[] Bits = Utils.UnpackBits(Data);
+	// ModulateRawData
+	// Takes an array of RAW data bytes, using this method will modulate full 8 bit
+	// bytes
+	// Returns the object the method was called on to allow chain calling
+	public FSKSignal ModulateRawData(byte[] Data) {
+		byte[] Bits = BitModifiers.UnpackByteArray(Data);
 		byte[] Symbols = ConvertUnpackedBitsToSymbols(Bits);
 		ModulateSymbols(Symbols);
+		return this;
 	}
 
-	public void ModulateUnpackedRawBits(byte[] Bits) {
+	// ModulateUnpackedRawBits
+	// Takes an array of unpacked bits and modulates them
+	// Returns the object the method was called on to allow chain calling
+	public FSKSignal ModulateUnpackedRawBits(byte[] Bits) {
 		byte[] Symbols = ConvertUnpackedBitsToSymbols(Bits);
 		ModulateSymbols(Symbols);
+		return this;
 	}
 
+	// ConvertUnpackedBitsToSymbols
+	// Takes an array of unpacked bits and converts them to the appropriate symbols
 	public byte[] ConvertUnpackedBitsToSymbols(byte[] Bits) {
 		int NumSymbols = (int) (Bits.length / BitsPerSymbol);
 		NumSymbols += Bits.length % BitsPerSymbol;
@@ -68,8 +80,11 @@ public class FSKSignal extends Signal {
 		Symbols = ApplyModulateSymbolMap(Symbols);
 		return Symbols;
 	}
-
-	public void ModulateSymbols(byte[] Symbols) {
+	
+	// ModulateSymbols
+	// Takes an array of symbols and generates the appropriate FSK Signal
+	// Returns the object the method was called on to allow chain calling
+	public FSKSignal ModulateSymbols(byte[] Symbols) {
 		int NumberOfSamples = (int) (Symbols.length * getWindowLength());
 		double[] Wave = new double[NumberOfSamples];
 		double[] WavePhase = new double[NumberOfSamples];
@@ -87,8 +102,12 @@ public class FSKSignal extends Signal {
 
 		setSamples(Wave);
 		setPhases(WavePhase);
+		return this;
 	}
 
+	// DemodulateSymbols
+	// Demodulates the given signal into an array of Symbols
+	// Returns byte[] Symbols
 	private byte[] DemodulateSymbols() {
 		int NumSymbols = (int) (getSamplesCount() / getWindowLength());
 		byte[] Symbols = new byte[NumSymbols];
@@ -121,8 +140,11 @@ public class FSKSignal extends Signal {
 		}
 		return Symbols;
 	}
-
-	public void Demodulate() {
+	
+	// Demodulate
+	// Demodulates the given signal into data bits
+	// Returns the object the method was called on to allow chain calling
+	public FSKSignal Demodulate() {
 		byte[] Symbols = ApplyDemodulateSymbolMap(DemodulateSymbols());
 		byte[] Bits = new byte[Symbols.length * BitsPerSymbol];
 
@@ -134,8 +156,12 @@ public class FSKSignal extends Signal {
 		}
 
 		DemodBits = Bits;
+		return this;
 	}
 
+	// ApplyModulateSymbolMap
+	// Applies the set ModulateSymbolMap to the provided symbols
+	// Returns byte[] Mapped symbols
 	public byte[] ApplyModulateSymbolMap(byte[] Symbols) {
 		if (ModulateSymbolMap.length == 0) {
 			return Symbols;
@@ -148,6 +174,9 @@ public class FSKSignal extends Signal {
 		return Results;
 	}
 
+	// ApplyDemodulateSymbolMap
+	// Applies the set DemodulateSymbolMap to the provided symbols
+	// Returns byte[] Mapped symbols
 	public byte[] ApplyDemodulateSymbolMap(byte[] Symbols) {
 		if (DemodulateSymbolMap.length == 0) {
 			return Symbols;
@@ -199,7 +228,7 @@ public class FSKSignal extends Signal {
 		return BitsPerSymbol * BitsPerSymbol;
 	}
 
-	public void setBitsPerSymbol(double bitsPerSymbol) {
+	protected void internal_setBitsPerSymbol(double bitsPerSymbol) {
 		if (bitsPerSymbol <= 0) {
 			bitsPerSymbol = 1;
 		} else if (bitsPerSymbol > 8) {
@@ -240,6 +269,6 @@ public class FSKSignal extends Signal {
 	}
 
 	public byte[] getDemodBitsPacked() {
-		return Utils.PackBits(DemodBits);
+		return BitModifiers.PackBits(DemodBits);
 	}
 }

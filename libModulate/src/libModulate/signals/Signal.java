@@ -1,4 +1,4 @@
-package libModulate;
+package libModulate.signals;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;

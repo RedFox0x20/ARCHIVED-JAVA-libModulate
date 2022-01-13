@@ -1,8 +1,12 @@
-package libModulate;
+package libModulate.signals;
 
 public class SignalGenerator {
-	public static Signal GenerateSine(double sampleRate, int numSamples, double frequency, double phaseDeg, double amplitude) {
-		double[] Wave = new double[numSamples]; 
+	// GenerateSine
+	// Generates a sine wave with the given parameters
+	// Returns Signal
+	public static Signal GenerateSine(double sampleRate, int numSamples, double frequency, double phaseDeg,
+			double amplitude) {
+		double[] Wave = new double[numSamples];
 		double[] WavePhase = new double[numSamples];
 
 		// Setup the initial phase and Wave value
@@ -22,8 +26,13 @@ public class SignalGenerator {
 		OutSignal.setPhases(WavePhase);
 		return OutSignal;
 	}
-	
-	public static Signal GenerateCosine(double sampleRate, int numSamples, double frequency, double phaseDeg, double amplitude) {
+
+	// GenerateCosine
+	// Generates a Cosine wave with the given parameters, internally calls
+	// GenerateSine with an additional 90 degree phase offset to the provided phase
+	// Returns Signal
+	public static Signal GenerateCosine(double sampleRate, int numSamples, double frequency, double phaseDeg,
+			double amplitude) {
 		return GenerateSine(sampleRate, numSamples, frequency, phaseDeg + 90, amplitude);
 	}
 }
