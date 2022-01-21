@@ -1,8 +1,6 @@
 package libModulateTest;
 
 import libModulate.signals.MFSKSignal;
-import libModulate.signals.RTTYSettings;
-import libModulate.signals.RTTYSignal;
 import libModulate.utils.BitModifiers;
 
 public class Main {
