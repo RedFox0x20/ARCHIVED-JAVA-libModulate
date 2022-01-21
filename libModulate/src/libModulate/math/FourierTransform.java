@@ -6,19 +6,24 @@ public class FourierTransform {
 	 * at a given frequency and sample. Returning the magnitude of that frequency
 	 * within the bounds of the start sample and the window length of the FSK.
 	 */
-	public static double CalculateDFTMagnitude(double[] Samples, double Frequency, int Offset, double SampleRate,
+	public static double CalculateDFTAverageMagnitude(double[] Samples, double Frequency, int Offset, double SampleRate,
 			double WindowLength) {
 		double Real = 0;
 		double Imaginary = 0;
 
 		// Calculate DFT across the samples
 		for (int i = 0; i < WindowLength; i++) {
-			double Angle = 2 * Math.PI * Frequency * i / SampleRate;
 			int Sample = i + Offset;
+			if (Sample >= Samples.length) { break; }
+			double Angle = 2 * Math.PI * Frequency * i / SampleRate;
 
 			Real += Math.cos(Angle) * Samples[Sample];
 			Imaginary += -Math.sin(Angle) * Samples[Sample];
 		}
+		
+		// Calculate the average over the sample window
+		Real /= WindowLength;
+		Imaginary /= WindowLength;
 
 		// Return the magnitude
 		return Math.sqrt((Real * Real) + (Imaginary * Imaginary));

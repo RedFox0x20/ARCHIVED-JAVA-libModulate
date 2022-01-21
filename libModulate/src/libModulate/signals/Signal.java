@@ -44,6 +44,14 @@ public class Signal {
 
 		return true;
 	}
+	
+	public void SkipSamplesFromStart(int numSamples) {
+		double[] newSamples = new double[Samples.length - numSamples];
+		for (int i = 0; i < Samples.length - numSamples; i++) {
+			newSamples[i] = Samples[i + numSamples];
+		}
+		Samples = newSamples;
+	}
 
 	/*
 	 * WriteSignalToPCM(String filename, double amplitude) returns Boolean, true on

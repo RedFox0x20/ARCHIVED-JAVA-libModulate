@@ -27,7 +27,7 @@ public class FSKSignal extends Signal {
 	private byte[] DemodBits;
 
 	// FSKSignal
-	// Allows for the Modulation and Demodulation of an FSKSignal 
+	// Allows for the Modulation and Demodulation of an FSKSignal
 	public FSKSignal(double sampleRate, double modulationRate, double bottomFrequency, double frequencyShift,
 			double initialPhaseDeg, double amplitude) {
 		setSampleRate(sampleRate);
@@ -66,13 +66,18 @@ public class FSKSignal extends Signal {
 	// ConvertUnpackedBitsToSymbols
 	// Takes an array of unpacked bits and converts them to the appropriate symbols
 	public byte[] ConvertUnpackedBitsToSymbols(byte[] Bits) {
-		int NumSymbols = (int) (Bits.length / BitsPerSymbol);
-		NumSymbols += Bits.length % BitsPerSymbol;
+		int NumSymbols = (int) (Bits.length / BitsPerSymbol)
+				+ (int) (Math.ceil(((double) (Bits.length % BitsPerSymbol)) / (double) BitsPerSymbol));
+
 		byte[] Symbols = new byte[NumSymbols];
 
 		for (int SymbolIndex = 0; SymbolIndex < NumSymbols; SymbolIndex++) {
 			for (int BitIndex = 0; BitIndex < BitsPerSymbol; BitIndex++) {
 				int DataIndex = SymbolIndex * BitsPerSymbol + BitIndex;
+				if (DataIndex >= Bits.length) {
+					break;
+				}
+
 				Symbols[SymbolIndex] |= Bits[DataIndex] << (BitsPerSymbol - BitIndex - 1);
 			}
 		}
@@ -80,7 +85,7 @@ public class FSKSignal extends Signal {
 		Symbols = ApplyModulateSymbolMap(Symbols);
 		return Symbols;
 	}
-	
+
 	// ModulateSymbols
 	// Takes an array of symbols and generates the appropriate FSK Signal
 	// Returns the object the method was called on to allow chain calling
@@ -108,8 +113,8 @@ public class FSKSignal extends Signal {
 	// DemodulateSymbols
 	// Demodulates the given signal into an array of Symbols
 	// Returns byte[] Symbols
-	private byte[] DemodulateSymbols() {
-		int NumSymbols = (int) (getSamplesCount() / getWindowLength());
+	protected byte[] DemodulateSymbols() {
+		int NumSymbols = (int) (Math.ceil(getSamplesCount() / getWindowLength()));
 		byte[] Symbols = new byte[NumSymbols];
 
 		int SymbolIndex = 0;
@@ -122,17 +127,19 @@ public class FSKSignal extends Signal {
 
 			// Iterate over each frequency to get their initial magnitudes
 			for (int i = 0; i < getFrequencyLevelsCount(); i++, Frequency += getFrequencyShift()) {
-				Magnitudes[i] = FourierTransform.CalculateDFTMagnitude(getSamples(), Frequency, SampleIndex,
+				Magnitudes[i] = FourierTransform.CalculateDFTAverageMagnitude(getSamples(), Frequency, SampleIndex,
 						getSampleRate(), getWindowLength());
 			}
 
 			// Remove harmonic magnitudes from each frequency to improve accuracy then pick
 			// out the highest value
-			double[] TrueMagnitudes = FourierTransform.RemoveHarmonicsFromMagnitudes(Magnitudes, getBottomFrequency());
+			// double[] TrueMagnitudes =
+			// FourierTransform.RemoveHarmonicsFromMagnitudes(Magnitudes,
+			// getBottomFrequency());
 
 			for (int i = 0; i < getFrequencyLevelsCount(); i++) {
-				if (TrueMagnitudes[i] > HighestMagnitude) {
-					HighestMagnitude = TrueMagnitudes[i];
+				if (Magnitudes[i] > HighestMagnitude) {
+					HighestMagnitude = Magnitudes[i];
 					HighestMagnitudeID = i;
 				}
 			}
@@ -140,7 +147,7 @@ public class FSKSignal extends Signal {
 		}
 		return Symbols;
 	}
-	
+
 	// Demodulate
 	// Demodulates the given signal into data bits
 	// Returns the object the method was called on to allow chain calling

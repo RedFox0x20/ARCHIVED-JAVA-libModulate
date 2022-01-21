@@ -1,6 +1,8 @@
 package libModulateTest;
 
 import libModulate.signals.MFSKSignal;
+import libModulate.signals.RTTYSettings;
+import libModulate.signals.RTTYSignal;
 import libModulate.utils.BitModifiers;
 
 public class Main {
@@ -8,7 +10,7 @@ public class Main {
 		byte[] SampleData = new byte[] { 'H', 'E', 'L', 'L', 'O', ' ', 'W', 'O', 'R', 'L', 'D', '!' };
 		byte[] SampleBits = new byte[] { 0b00000000, (byte) 0b11111111, 0b01010101, (byte) 0b10101010 };
 		byte[] SampleSymbols = new byte[] { 1, 2, 3, 0, 0, 0, 0, 3, 2, 1, 2, 1, 2, 3, 0 };
-		MFSKSignal Sig = new MFSKSignal(8000, 50, 50, 50, 0, 1, 2);
+		MFSKSignal Sig = new MFSKSignal(8000, 50, 50, 50, 0, 1, 3);
 		byte[] DemodData;
 
 		// XXX: TEST - Modulation of user-provided RAW BYTES
