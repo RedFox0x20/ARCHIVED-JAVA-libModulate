@@ -9,6 +9,7 @@ import libModulate.utils.BitModifiers;
 import libModulate.utils.DataModifiers;
 
 public class Main {
+
 	public static void main(String[] args) {
 		MFSKSignal Sig = null;
 		try {
@@ -47,11 +48,14 @@ public class Main {
 		byte[] DemodBits = FSKBitAssigner.ApplyAssignments(DemodSymbols);
 		byte[] DemodBitsASCII = DataModifiers.ByteArrayToASCII(DemodBits);
 		byte[] PackedDemodBits = BitModifiers.PackBits(DemodBits);
-		System.out.println("Started with:\tRawBytes \t" + new String(SampleData) + "\n\t\tRawBits \t"
-				+ new String(DataModifiers.ByteArrayToASCII(SampleDataBits)) + "\n\t\tSYMBOLS \t"
-				+ new String(DataModifiers.ByteArrayToASCII(SampleDataSymbols)));
-		System.out.println("\nDemod to:\tSYMBOLS \t" + new String(DataModifiers.ByteArrayToASCII(DemodSymbols))
-				+ "\n\t\tRawBits \t" + new String(DemodBitsASCII) + "\n\t\tRawBytes\t" + new String(PackedDemodBits));
+		System.out.println("Started with:");
+		PrintTwoColumns("15", "\tRawBytes", new String(SampleData));
+		PrintTwoColumns("15", "\tRawBits", new String(DataModifiers.ByteArrayToASCII(SampleDataBits)));
+		PrintTwoColumns("15", "\tSYMBOLS", new String(DataModifiers.ByteArrayToASCII(SampleDataSymbols)));
+		System.out.println("\nDemod to:");
+		PrintTwoColumns("15", "\tSYMBOLS", new String(DataModifiers.ByteArrayToASCII(DemodSymbols)));
+		PrintTwoColumns("15", "\tRawBits", new String(DemodBitsASCII));
+		PrintTwoColumns("15", "\tRawBytes", new String(PackedDemodBits));
 		System.out.println();
 
 		// XXX: EXAMPLE :: Using a repeat frequency
@@ -68,7 +72,7 @@ public class Main {
 		// Apply our shift to the sample bits -- This could be done within the following
 		// loop however in more complex scenarios this method may be easier to maintain
 		byte[] SymbolsWithoutRepeats = FSKSymbolAssigner.ApplyAssignments(SampleDataBits.clone());
-		
+
 		// Look for duplicate symbols, replace our duplicate with our repeat symbol (0)
 		for (int i = 1; i < SymbolsWithoutRepeats.length; i++) {
 			if (SymbolsWithoutRepeats[i] == SymbolsWithoutRepeats[i - 1]) {
@@ -92,13 +96,20 @@ public class Main {
 		DemodBits = FSKBitAssigner.ApplyAssignments(DemodSymbols);
 		DemodBitsASCII = DataModifiers.ByteArrayToASCII(DemodBits);
 		PackedDemodBits = BitModifiers.PackBits(DemodBits);
-		System.out.println("Started with:\tRawBytes \t" + new String(SampleData) + "\n\t\tRawBits \t"
-				+ new String(DataModifiers.ByteArrayToASCII(SampleDataBits)) + "\n\t\tSYMBOLS \t"
-				+ new String(DataModifiers.ByteArrayToASCII(SampleDataSymbols)) + "\n\t\tSYMBOLS \t"
-				+ new String(DataModifiers.ByteArrayToASCII(SymbolsWithoutRepeats)));
-		System.out.println("\nDemod to:\tSYMBOLS \t" + new String(DataModifiers.ByteArrayToASCII(Sig.getSymbols()))
-				+ "\n\t\tSYMBOLS \t" + new String(DataModifiers.ByteArrayToASCII(DemodSymbols)) + "\n\t\tRawBits \t"
-				+ new String(DemodBitsASCII) + "\n\t\tRawBytes\t" + new String(PackedDemodBits));
+		System.out.println("Started with:");
+		PrintTwoColumns("15", "\tRawBytes", new String(SampleData));
+		PrintTwoColumns("15", "\tRawBits", new String(DataModifiers.ByteArrayToASCII(SampleDataBits)));
+		PrintTwoColumns("15", "\tSYMBOLS", new String(DataModifiers.ByteArrayToASCII(SampleDataSymbols)));
+		PrintTwoColumns("15", "\tSYMBOLS", new String(DataModifiers.ByteArrayToASCII(SymbolsWithoutRepeats)));
+		System.out.println("\nDemod to:");
+		PrintTwoColumns("15", "\tSYMBOLS", new String(DataModifiers.ByteArrayToASCII(Sig.getSymbols())));
+		PrintTwoColumns("15", "\tSYMBOLS", new String(DataModifiers.ByteArrayToASCII(DemodSymbols)));
+		PrintTwoColumns("15", "\tRawBits", new String(DemodBitsASCII));
+		PrintTwoColumns("15", "\tRawBytes", new String(PackedDemodBits));
 		System.out.println();
+	}
+
+	private static void PrintTwoColumns(String length, String left, String right) {
+		System.out.printf("%-" + length + "s %s\n", left, right);
 	}
 }
