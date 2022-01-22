@@ -5,7 +5,7 @@ public class BitModifiers {
 	// Packs an array of individual bits to an array of bytes
 	// [ 0, 0, 0, 0, 0, 1, 1, 0 ] would become [ 6 ]
 	public static byte[] PackBits(byte[] Bits) {
-		int NumBytes = (Bits.length / 8) + (Bits.length % 8);
+		int NumBytes = Bits.length / 8;
 		byte[] data = new byte[NumBytes];
 
 		for (int i = 0; i < NumBytes; i++) {
