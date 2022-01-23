@@ -11,15 +11,12 @@ import libModulate.utils.DataModifiers;
 public class Main {
 
 	public static void main(String[] args) {
-		MFSKSignal Sig = null;
+		MFSKSignal Sig;
 		try {
-			Sig = new MFSKSignal(8000, 10, 100, 50, 0, 1, 4);
+			Sig = new MFSKSignal(8000, 10, 100, 50, 0, 1, 3);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
-
-		if (Sig == null) {
 			return;
 		}
 

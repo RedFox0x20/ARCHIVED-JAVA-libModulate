@@ -9,9 +9,9 @@ public class MFSKSignal extends FSKSignal {
 	// however it's not always necessary for the user to set the BitsPerSymbol and
 	// separate naming will allow for more readable code
 	public MFSKSignal(double sampleRate, double modulationRate, double bottomFrequency, double frequencyShift,
-			double initialPhaseDeg, double amplitude, int bitsPerSymbol) throws Exception {
+			double initialPhaseDeg, double amplitude, int frequencyLevelsCount) throws Exception {
 		super(sampleRate, modulationRate, bottomFrequency, frequencyShift, initialPhaseDeg, amplitude);
-		setFrequencyLevelsCount(bitsPerSymbol);
+		setFrequencyLevelsCount(frequencyLevelsCount);
 	}
 
 	// setBitsPerSymbol
