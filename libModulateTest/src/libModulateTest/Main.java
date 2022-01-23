@@ -4,6 +4,7 @@ import libModulate.BitAssigner;
 import libModulate.SymbolAssigner;
 import libModulate.Assignment_ManyToOne;
 import libModulate.Assignment_OneToMany;
+import libModulate.signals.FSKSignal;
 import libModulate.signals.MFSKSignal;
 import libModulate.utils.BitModifiers;
 import libModulate.utils.DataModifiers;
@@ -11,9 +12,16 @@ import libModulate.utils.DataModifiers;
 public class Main {
 
 	public static void main(String[] args) {
-		MFSKSignal Sig;
+		Example_FSKSignal();
+		Example_MFSK_RepeatSymbol();
+	}
+
+	private static void Example_FSKSignal() {
+		System.out.println("RUNNING EXAMPLE: Example_FSKSignal");
+
+		FSKSignal Sig;
 		try {
-			Sig = new MFSKSignal(8000, 10, 100, 50, 0, 1, 3);
+			Sig = new FSKSignal(8000, 10, 100, 50, 0, 1);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -54,20 +62,38 @@ public class Main {
 		PrintTwoColumns("15", "\tRawBits", new String(DemodBitsASCII));
 		PrintTwoColumns("15", "\tRawBytes", new String(PackedDemodBits));
 		System.out.println();
+	}
 
-		// XXX: EXAMPLE :: Using a repeat frequency
+	private static void Example_MFSK_RepeatSymbol() {
+		System.out.println("RUNNING EXAMPLE: Example_MFSK_RepeatSymbol");
 
+		MFSKSignal Sig;
+		try {
+			Sig = new MFSKSignal(8000, 10, 100, 50, 0, 1, 3);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return;
+		}
+		
 		// Shift the frequency up 1
+		SymbolAssigner FSKSymbolAssigner = new SymbolAssigner();
+		FSKSymbolAssigner.setBitsPerSymbol(1);
 		FSKSymbolAssigner
 				.setAssignments(new Assignment_ManyToOne[] { new Assignment_ManyToOne(new byte[] { 0 }, (byte) 1),
 						new Assignment_ManyToOne(new byte[] { 1 }, (byte) 2) });
 
 		// Shift the symbol down 1
+		BitAssigner FSKBitAssigner = new BitAssigner();
+		FSKBitAssigner.setAssignmentLength(1);
 		FSKBitAssigner.setAssignments(new Assignment_OneToMany[] { new Assignment_OneToMany((byte) 1, new byte[] { 0 }),
 				new Assignment_OneToMany((byte) 2, new byte[] { 1 }) });
 
 		// Apply our shift to the sample bits -- This could be done within the following
 		// loop however in more complex scenarios this method may be easier to maintain
+		byte[] SampleData = new byte[] { 'H', 'E', 'L', 'L', 'O', ' ', 'W', 'O', 'R', 'L', 'D', '!' };
+		byte[] SampleDataBits = BitModifiers.UnpackByteArray(SampleData);
+		byte[] SampleDataSymbols = FSKSymbolAssigner.ApplyAssignments(SampleDataBits);
 		byte[] SymbolsWithoutRepeats = FSKSymbolAssigner.ApplyAssignments(SampleDataBits.clone());
 
 		// Look for duplicate symbols, replace our duplicate with our repeat symbol (0)
@@ -81,7 +107,7 @@ public class Main {
 		Sig.Modulate();
 		Sig.WriteSignalToPCM("RawData_RepeatOnZero.8000.16b.pcm");
 		Sig.Demodulate();
-		DemodSymbols = Sig.getSymbols();
+		byte[] DemodSymbols = Sig.getSymbols();
 
 		// Detect the repeat symbol (0) and swap it for the previous symbol
 		for (int i = 1; i < DemodSymbols.length; i++) {
@@ -90,9 +116,9 @@ public class Main {
 			}
 		}
 
-		DemodBits = FSKBitAssigner.ApplyAssignments(DemodSymbols);
-		DemodBitsASCII = DataModifiers.ByteArrayToASCII(DemodBits);
-		PackedDemodBits = BitModifiers.PackBits(DemodBits);
+		byte[] DemodBits = FSKBitAssigner.ApplyAssignments(DemodSymbols);
+		byte[] DemodBitsASCII = DataModifiers.ByteArrayToASCII(DemodBits);
+		byte[] PackedDemodBits = BitModifiers.PackBits(DemodBits);
 		System.out.println("Started with:");
 		PrintTwoColumns("15", "\tRawBytes", new String(SampleData));
 		PrintTwoColumns("15", "\tRawBits", new String(DataModifiers.ByteArrayToASCII(SampleDataBits)));
