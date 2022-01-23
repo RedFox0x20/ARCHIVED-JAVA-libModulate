@@ -1,5 +1,7 @@
 package libModulate;
 
+// BitAssigner
+// Provides a method of converting from an array of symbols to an array of unpacked bits
 public class BitAssigner {
 	private int BitsPerSymbol;
 	private Assignment_OneToMany[] Assignments;
@@ -12,6 +14,9 @@ public class BitAssigner {
 		setAssignments(Assignments);
 	}
 
+	// ApplyAssignments
+	// Apply the stored symbol to bit assignments and return an array of unpacked
+	// bits
 	public byte[] ApplyAssignments(byte[] Symbols) {
 		int NumBits = Symbols.length * BitsPerSymbol;
 		byte[] Bits = new byte[NumBits];

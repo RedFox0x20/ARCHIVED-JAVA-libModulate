@@ -1,4 +1,6 @@
 package libModulate;
+//Assignment_OneToMany
+//Provide a method of storing conversions from a byte (Key) to an array of bytes (Values)
 
 public class Assignment_OneToMany {
 

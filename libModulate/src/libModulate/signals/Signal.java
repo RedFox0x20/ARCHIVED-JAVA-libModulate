@@ -42,7 +42,9 @@ public class Signal {
 
 		return true;
 	}
-	
+
+	// SkipSamplesFromStarts
+	// Removed numSamples samples from the start of the stored signal
 	public void SkipSamplesFromStart(int numSamples) {
 		double[] newSamples = new double[Samples.length - numSamples];
 		for (int i = 0; i < Samples.length - numSamples; i++) {
