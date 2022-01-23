@@ -17,9 +17,7 @@ public class Signal {
 	 */
 	public Boolean LoadSignalFromPCM16B(String filename, double sampleRate, double amplitude) throws Exception {
 		setSampleRate(sampleRate);
-		if (amplitude <= 0 || amplitude > 1) {
-			return false;
-		}
+		setAmplitude(amplitude);
 
 		// Load File
 		byte[] Data;
@@ -59,15 +57,15 @@ public class Signal {
 	 * 
 	 * Writes 16 Bit Big Endian PCM data from a file
 	 */
-	public Boolean WriteSignalToPCM(String filename, double amplitude) {
-		if (amplitude <= 0 || amplitude > 1 || Samples.length < 2) {
+	public Boolean WriteSignalToPCM(String filename) {
+		if (Samples.length < 2) {
 			return false;
 		}
 
 		// Convert samples to PCM16 data
 		byte[] Data = new byte[Samples.length * 2];
 		for (int i = 0; i < Samples.length; i++) {
-			long Temp = (long) (Samples[i] * ((1 << 15) - 1) / amplitude);
+			long Temp = (long) (Samples[i] * ((1 << 15) - 1) / Amplitude);
 			Data[2 * i] = (byte) (Temp >> 8);
 			Data[2 * i + 1] = (byte) Temp;
 		}
@@ -130,10 +128,10 @@ public class Signal {
 	}
 
 	public void setAmplitude(double amplitude) {
-		if (amplitude < 0) {
-			amplitude = 1;
+		if (amplitude <= 0) {
+			amplitude = 0.1;
 		} else if (amplitude > 1) {
-			amplitude = 1;
+			amplitude = 1.0;
 		}
 
 		Amplitude = amplitude;

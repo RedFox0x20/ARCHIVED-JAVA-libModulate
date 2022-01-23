@@ -38,7 +38,7 @@ public class Main {
 		// XXX: TEST - Modulation of user-provided RAW BYTES
 		Sig.setSymbols(SampleDataSymbols);
 		Sig.Modulate();
-		Sig.WriteSignalToPCM("RawData.8000.16b.pcm", 1.0);
+		Sig.WriteSignalToPCM("RawData.8000.16b.pcm");
 		Sig.Demodulate();
 
 		byte[] DemodSymbols = Sig.getSymbols();
@@ -79,7 +79,7 @@ public class Main {
 
 		Sig.setSymbols(SymbolsWithoutRepeats);
 		Sig.Modulate();
-		Sig.WriteSignalToPCM("RawData_RepeatOnZero.8000.16b.pcm", 1.0);
+		Sig.WriteSignalToPCM("RawData_RepeatOnZero.8000.16b.pcm");
 		Sig.Demodulate();
 		DemodSymbols = Sig.getSymbols();
 
