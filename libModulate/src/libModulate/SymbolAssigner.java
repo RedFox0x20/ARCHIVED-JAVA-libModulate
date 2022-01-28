@@ -68,4 +68,32 @@ public class SymbolAssigner {
 	public void setBitsPerSymbol(int bitsPerSymbol) {
 		BitsPerSymbol = bitsPerSymbol;
 	}
+
+	public static final Assignment_ManyToOne[] DEFAULT_ASSIGNMENT_FSK_SYMBOLS = new Assignment_ManyToOne[] {
+			new Assignment_ManyToOne(new byte[] { 0 }, (byte) 0),
+			new Assignment_ManyToOne(new byte[] { 1 }, (byte) 1) };
+
+	public static final Assignment_ManyToOne[] DEFAULT_ASSIGNMENT_MFSK4_SYMBOLS = new Assignment_ManyToOne[] {
+			new Assignment_ManyToOne(new byte[] { 0, 0 }, (byte) 0),
+			new Assignment_ManyToOne(new byte[] { 0, 1 }, (byte) 1),
+			new Assignment_ManyToOne(new byte[] { 1, 0 }, (byte) 2),
+			new Assignment_ManyToOne(new byte[] { 1, 1 }, (byte) 3) };
+
+	public static final Assignment_ManyToOne[] DEFAULT_ASSIGNMENT_MFSK16_SYMBOLS = new Assignment_ManyToOne[] {
+			new Assignment_ManyToOne(new byte[] { 0, 0, 0, 0 }, (byte) 0),
+			new Assignment_ManyToOne(new byte[] { 0, 0, 0, 1 }, (byte) 1),
+			new Assignment_ManyToOne(new byte[] { 0, 0, 1, 0 }, (byte) 2),
+			new Assignment_ManyToOne(new byte[] { 0, 0, 1, 1 }, (byte) 3),
+			new Assignment_ManyToOne(new byte[] { 0, 1, 0, 0 }, (byte) 4),
+			new Assignment_ManyToOne(new byte[] { 0, 1, 0, 1 }, (byte) 5),
+			new Assignment_ManyToOne(new byte[] { 0, 1, 1, 0 }, (byte) 6),
+			new Assignment_ManyToOne(new byte[] { 0, 1, 1, 1 }, (byte) 7),
+			new Assignment_ManyToOne(new byte[] { 1, 0, 0, 0 }, (byte) 8),
+			new Assignment_ManyToOne(new byte[] { 1, 0, 0, 1 }, (byte) 9),
+			new Assignment_ManyToOne(new byte[] { 1, 0, 1, 0 }, (byte) 10),
+			new Assignment_ManyToOne(new byte[] { 1, 0, 1, 1 }, (byte) 11),
+			new Assignment_ManyToOne(new byte[] { 1, 1, 0, 0 }, (byte) 12),
+			new Assignment_ManyToOne(new byte[] { 1, 1, 0, 1 }, (byte) 13),
+			new Assignment_ManyToOne(new byte[] { 1, 1, 1, 0 }, (byte) 14),
+			new Assignment_ManyToOne(new byte[] { 1, 1, 1, 1 }, (byte) 15) };
 }
