@@ -16,6 +16,24 @@ public class Main {
 		Example_MFSK_RepeatSymbol();
 		Example_MFSK16();
 		Example_MFSK32();
+		Test_Parity_First();
+		Test_Parity_Last();
+	}
+
+	private static void Test_Parity_First() {
+		System.out.println("RUNNING TEST: Test_Parity_First");
+		byte[] Bits = new byte[] { 0, 1, 1, 0, 1, 1 };
+		Boolean Result = libModulate.ErrorDetection.ParityCheckFirst(Bits, 0, 5);
+		PrintTwoColumns("15", "\tExpected: false", "Result: " + Result.toString());
+		System.out.println();
+	}
+
+	private static void Test_Parity_Last() {
+		System.out.println("RUNNING TEST: Test_Parity_Last");
+		byte[] Bits = new byte[] { 0, 1, 1, 1, 1, 1 };
+		Boolean Result = libModulate.ErrorDetection.ParityCheckLast(Bits, 0, 5);
+		PrintTwoColumns("15", "\tExpected: true", "Result: " + Result.toString());
+		System.out.println();
 	}
 
 	private static void Example_FSKSignal() {
@@ -182,7 +200,7 @@ public class Main {
 		PrintTwoColumns("15", "\tRawBytes", new String(PackedDemodBits));
 		System.out.println();
 	}
-	
+
 	private static void Example_MFSK32() {
 		System.out.println("RUNNING EXAMPLE: Example_MFSK32");
 
