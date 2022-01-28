@@ -188,7 +188,7 @@ public class Main {
 
 		MFSKSignal Sig;
 		try {
-			Sig = new MFSKSignal(8000, 10, 100, 50, 0, 1, 32);
+			Sig = new MFSKSignal(8000, 100, 100, 50, 0, 1, 32);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
