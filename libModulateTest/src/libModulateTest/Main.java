@@ -213,7 +213,7 @@ public class Main {
 
 		Sig.setSymbols(SampleDataSymbols);
 		Sig.Modulate();
-		Sig.WriteSignalToPCM("Example_MFSK16.8000.16b.pcm");
+		Sig.WriteSignalToPCM("Example_MFSK32.8000.16b.pcm");
 		Sig.Demodulate();
 
 		byte[] DemodSymbols = Sig.getSymbols();
