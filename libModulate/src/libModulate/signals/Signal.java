@@ -15,7 +15,7 @@ public class Signal {
 	 * 
 	 * Loads 16 Bit Big Endian PCM data from a file
 	 */
-	public Boolean LoadSignalFromPCM16B(String filename, double sampleRate, double amplitude) throws Exception {
+	public Boolean LoadSignalFromPCM16B(String filename, double sampleRate, double amplitude) {
 		setSampleRate(sampleRate);
 		setAmplitude(amplitude);
 
@@ -87,11 +87,11 @@ public class Signal {
 	// XXX: GETTERS & SETTERS
 
 	public double[] getSamples() {
-		return Samples;
+		return Samples.clone();
 	}
 
 	public void setSamples(double[] samples) {
-		Samples = samples;
+		Samples = samples.clone();
 	}
 
 	public int getSamplesCount() {
@@ -110,11 +110,11 @@ public class Signal {
 	}
 
 	public double[] getPhases() {
-		return Phases;
+		return Phases.clone();
 	}
 
 	public void setPhases(double[] phases) {
-		Phases = phases;
+		Phases = phases.clone();
 	}
 
 	public double getInitialPhaseDeg() {
