@@ -7,6 +7,4 @@ public class Encoding {
 
 	public static final byte[] BAUDOT_ENCODING_FIGURES = new byte[] { 0, '5', '\r', '9', ' ', 'H', ',', '.', '\n', ')',
 			'4', '&', '8', '0', ':', ';', '3', '"', '$', '?', '\b', '6', '!', '/', '-', '2', '\'', 1, '7', '(', 2 };
-	
-	
 }

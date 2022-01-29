@@ -95,6 +95,9 @@ public class FSKSignal extends Signal {
 	}
 
 	public void setModulationRate(double modulationRate) {
+		if (modulationRate <= 0) {
+			modulationRate = 1;
+		}
 		ModulationRate = modulationRate;
 	}
 
