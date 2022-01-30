@@ -6,6 +6,7 @@
 > ```java
 > private double[] Samples;
 > ```
+
 **Description**
 
 > A container to store the loaded/generated signal samples
@@ -19,6 +20,7 @@
 > ```java
 > private double[] Phases;
 > ```
+
 **Description**
 
 > A container to store the loaded/generated signal phases
@@ -32,6 +34,7 @@
 > ```java
 > private double SampleRate;
 > ```
+
 **Description**
 
 > A container to store the sample rate of the loaded/generated signal
@@ -45,6 +48,7 @@
 > ```java
 > private double Amplitude;
 > ```
+
 **Description**
 
 > A container to store the loaded/generated signals amplitude multiplier
@@ -58,6 +62,7 @@
 > ```java
 > private double InitialPhaseDeg;
 > ```
+
 **Description**
 
 > A container to store the initial phase of a signal for generation/demodulation in degrees
