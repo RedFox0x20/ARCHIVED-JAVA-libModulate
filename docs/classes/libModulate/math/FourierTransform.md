@@ -1,7 +1,6 @@
 # Math - FourierTransform.java
 
 ## Methods
----
 
 ### CalculateDFTAverageMagnitude
 > ```java
