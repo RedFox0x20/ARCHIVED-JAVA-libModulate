@@ -1,74 +1,72 @@
 # Math - Signal.java
 
 ## Properties
----
+
 ### Samples
-```java
-private double[] Samples;
-```
+> ```java
+> private double[] Samples;
+> ```
 **Description**
 
-A container to store the loaded/generated signal samples
-
-Getter: `getSamples`, `getSamplesCount`
-
-Setter: `setSamples`
-
----
-### Samples
-```java
-private double[] Phases;
-```
-**Description**
-
-A container to store the loaded/generated signal phases
-
-Getter: `getPhases`
-
-Setter: `setPhases`
+> A container to store the loaded/generated signal samples
+> 
+> Getter: `getSamples`, `getSamplesCount`
+> 
+> Setter: `setSamples`
 
 ---
 ### Samples
-```java
-private double SampleRate;
-```
+> ```java
+> private double[] Phases;
+> ```
 **Description**
 
-A container to store the sample rate of the loaded/generated signal
+> A container to store the loaded/generated signal phases
+>
+> Getter: `getPhases`
+>
+> Setter: `setPhases`
 
-Getter: `getSampleRate`
+---
+### Samples
+> ```java
+> private double SampleRate;
+> ```
+**Description**
 
-Setter: `setSampleRate`
+> A container to store the sample rate of the loaded/generated signal
+>
+> Getter: `getSampleRate`
+>
+> Setter: `setSampleRate`
 
 ---
 ### Amplitude
-```java
-private double Amplitude;
-```
+> ```java
+> private double Amplitude;
+> ```
 **Description**
 
-A container to store the loaded/generated signals amplitude multiplier
-
-Getter: `getAmplitude`
-
-Setter: `setAmplitude`
+> A container to store the loaded/generated signals amplitude multiplier
+>
+> Getter: `getAmplitude`
+>
+> Setter: `setAmplitude`
 
 ---
 ### Samples
-```java
-private double InitialPhaseDeg;
-```
+> ```java
+> private double InitialPhaseDeg;
+> ```
 **Description**
 
-A container to store the initial phase of a signal for generation/demodulation in degrees
+> A container to store the initial phase of a signal for generation/demodulation in degrees
+> 
+> Getter: `getInitialPhase`
+> 
+> Setter: `setInitialPhase`
 
-Getter: `getInitialPhase`
-
-Setter: `setInitialPhase`
-
----
 ## Methods
----
 
 ### LoadSignalFromPCM16B
 > ```java
