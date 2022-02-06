@@ -1,4 +1,4 @@
 # libModulate
 ## Packages
-- [Math](math/Math.md)
-- [Signals](signals/Signals.md)
+- [libModulate.math](math/Math.md)
+- [libModulate.signals](signals/Signals.md)

@@ -1,4 +1,4 @@
-# Math - Signal.java
+# libModulate.signals - Signal.java
 
 ## Properties
 

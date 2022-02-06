@@ -1,4 +1,4 @@
-# Math - FourierTransform.java
+# libModulate.math - FourierTransform.java
 
 ## Methods
 
