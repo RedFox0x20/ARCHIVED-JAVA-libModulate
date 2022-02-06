@@ -10,4 +10,4 @@ is a self learning, research, project!
 
 ## Docs
 
-Documentation is available [here](https://https://redfox0x20.github.io/libModulate/)
+Documentation is available [here](https://redfox0x20.github.io/libModulate/)
