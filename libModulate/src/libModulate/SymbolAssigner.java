@@ -5,9 +5,7 @@ import libModulate.utils.ArrayUtils;
 // SymbolAssigner
 // A class that provides translation from an array of unpacked bits to symbols that can be used in modulation
 public class SymbolAssigner {
-	public static final Assignment_ManyToOne[] ASSIGNMENT_FSK = new Assignment_ManyToOne[] { new Assignment_ManyToOne(new byte[] { 0 }, (byte) 0),
-					new Assignment_ManyToOne(new byte[] { 1 }, (byte) 1) };
-	
+
 	private int BitsPerSymbol;
 	private Assignment_ManyToOne[] Assignments;
 

@@ -59,11 +59,11 @@ public class Main {
 
 		SymbolAssigner FSKSymbolAssigner = new SymbolAssigner();
 		FSKSymbolAssigner.setBitsPerSymbol(1);
-		FSKSymbolAssigner.setAssignments(SymbolAssigner.ASSIGNMENT_FSK);
+		FSKSymbolAssigner.setAssignments(SymbolAssigner.DEFAULT_ASSIGNMENT_FSK_SYMBOLS);
 
 		BitAssigner FSKBitAssigner = new BitAssigner();
 		FSKBitAssigner.setAssignmentLength(1);
-		FSKBitAssigner.setAssignments(BitAssigner.ASSIGNMENT_FSK);
+		FSKBitAssigner.setAssignments(BitAssigner.DEFAULT_ASSIGNMENT_FSK_BITS);
 
 		byte[] SampleData = new byte[] { 'H', 'E', 'L', 'L', 'O', ' ', 'W', 'O', 'R', 'L', 'D', '!' };
 		byte[] SampleDataBits = BitModifiers.UnpackByteArray(SampleData);
