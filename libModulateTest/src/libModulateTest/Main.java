@@ -104,14 +104,11 @@ public class Main {
 
 		SymbolAssigner FSKSymbolAssigner = new SymbolAssigner();
 		FSKSymbolAssigner.setBitsPerSymbol(1);
-		FSKSymbolAssigner
-				.setAssignments(new Assignment_ManyToOne[] { new Assignment_ManyToOne(new byte[] { 0 }, (byte) 0),
-						new Assignment_ManyToOne(new byte[] { 1 }, (byte) 1) });
+		FSKSymbolAssigner.setAssignments(FSKSymbolAssigner.DEFAULT_ASSIGNMENT_FSK_SYMBOLS);
 
 		BitAssigner FSKBitAssigner = new BitAssigner();
 		FSKBitAssigner.setAssignmentLength(1);
-		FSKBitAssigner.setAssignments(new Assignment_OneToMany[] { new Assignment_OneToMany((byte) 0, new byte[] { 0 }),
-				new Assignment_OneToMany((byte) 1, new byte[] { 1 }) });
+		FSKBitAssigner.setAssignments(BitAssigner.DEFAULT_ASSIGNMENT_FSK_BITS);
 
 		byte[] SampleData = new byte[] { 'H', 'E', 'L', 'L', 'O', ' ', 'W', 'O', 'R', 'L', 'D', '!' };
 		byte[] SampleDataBits = BitModifiers.UnpackByteArray(SampleData);
