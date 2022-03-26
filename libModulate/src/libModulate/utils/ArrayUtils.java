@@ -13,8 +13,7 @@ public class ArrayUtils {
 			if (a[i] != b[i]) {
 				return false;
 			}
-		}
+		}	
 		return true;
 	}
-
 }
