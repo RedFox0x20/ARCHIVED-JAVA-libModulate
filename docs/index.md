@@ -8,4 +8,4 @@ be patient and feel free to provide any feedback. Please do not create PRs, this
 is a self learning, research, project!
 
 ## Developer documentation
-Developer documentation for each package and class can be accesses [here](classes/libModulate/libModulate.md)
+<!-- Developer documentation for each package and class can be accesses [here](classes/libModulate/libModulate.md) -->
